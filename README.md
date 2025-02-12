@@ -1,5 +1,7 @@
 # program-sederhana
 
+Ide : Membuat Perpustakaan Sederhana
+
 Menerapkan struktur project dengan pattern MVC
 Syntax Dasar:
     1. Variabel & Tipe Data (string, int, float, bool, array, slice, map)
