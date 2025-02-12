@@ -14,7 +14,7 @@ func SetupRoutes() {
 	http.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodPost:
-			controller.AddBookHandler(w, r) // Perbaikan di sini
+			controller.AddBookHandler(w, r)
 		case http.MethodGet:
 			controller.GetAllBooksHandler(w, r)
 		}
@@ -23,7 +23,7 @@ func SetupRoutes() {
 	http.HandleFunc("/books/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
-			controller.GetBookByIdHandler(w, r) // Perbaikan di sini
+			controller.GetBookByIdHandler(w, r)
 		case http.MethodPut:
 			controller.EditBookByIdHandler(w, r)
 		case http.MethodDelete:
