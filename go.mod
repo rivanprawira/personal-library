@@ -1,3 +1,3 @@
-module program-sederhana-1
+module personal-library
 
 go 1.23.6
