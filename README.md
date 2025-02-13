@@ -26,3 +26,11 @@ Pointer & Struct
 Interface & Polymorphism
 
 Goroutine & Channel
+
+
+# Tambahkan file .env
+Isi file .env
+    PORT=
+    USERNAME_SERVER=
+    PASSWORD_SERVER=
+    TOKEN
