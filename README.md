@@ -30,6 +30,7 @@ Goroutine & Channel
 
 # Tambahkan file .env
 Isi file .env
+
     PORT=
 
     USERNAME_SERVER=
