@@ -35,9 +35,10 @@ type BookRepository interface {
 	FilterBooks(name, finished string) []Book
 }
 
+// Membuat tipe data InMemoryBookRepository untuk implementasi interface sebelumnya
 type InMemoryBookRepository struct{}
 
-// UpdateBook implements BookRepository.
+// Fungsi update buku.
 func (r *InMemoryBookRepository) UpdateBook(id int, updatedBook Book) bool {
 	for i, book := range books {
 		if book.ID == id {
@@ -68,6 +69,7 @@ func (r *InMemoryBookRepository) UpdateBook(id int, updatedBook Book) bool {
 	return false
 }
 
+// Fungsi menambahkan Buku.
 func (r *InMemoryBookRepository) AddBook(book Book) Book {
 	lastID++
 	book.ID = lastID
@@ -79,10 +81,12 @@ func (r *InMemoryBookRepository) AddBook(book Book) Book {
 	return book
 }
 
+// Fungsi mengambil semua buku.
 func (r *InMemoryBookRepository) GetAllBooks() []Book {
 	return books
 }
 
+// Fungsi Mengambil buku berdasarkan id.
 func (r *InMemoryBookRepository) GetBookByID(id int) (*Book, bool) {
 	for _, book := range books {
 		if book.ID == id {
@@ -92,18 +96,7 @@ func (r *InMemoryBookRepository) GetBookByID(id int) (*Book, bool) {
 	return nil, false
 }
 
-func (r *InMemoryBookRepository) UpdatedBook(id int, updateBook Book) bool {
-	for i, book := range books {
-		if book.ID == id {
-			books[i] = updateBook
-			books[i].UpdatedAt = time.Now().Format(time.RFC3339)
-			books[i].Finished = books[i].PageCount == books[i].ReadPage
-			return true
-		}
-	}
-	return false
-}
-
+// Fungsi Menghapus Buku
 func (r *InMemoryBookRepository) DeleteBook(id int) bool {
 	for i, book := range books {
 		if book.ID == id {
@@ -114,6 +107,7 @@ func (r *InMemoryBookRepository) DeleteBook(id int) bool {
 	return false
 }
 
+// Fungsi Filter Buku
 func (r *InMemoryBookRepository) FilterBooks(name, finished string) []Book {
 	filteredBooks := books
 
@@ -127,6 +121,7 @@ func (r *InMemoryBookRepository) FilterBooks(name, finished string) []Book {
 	return filteredBooks
 }
 
+// Fungsi filter buku dari nama
 func filteredBooksByName(books []Book, name string) []Book {
 	var result []Book
 	for _, book := range books {
@@ -137,6 +132,7 @@ func filteredBooksByName(books []Book, name string) []Book {
 	return result
 }
 
+// Fungsi filter buku dari finished
 func filteredBooksByFinished(books []Book, finished string) []Book {
 	var result []Book
 	isFinished := finished == "1"

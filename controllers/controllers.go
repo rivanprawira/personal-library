@@ -103,11 +103,6 @@ func (c *BookController) EditBookByIdHandler(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	if updatedBook.Title == "" {
-		http.Error(w, "Gagal memperbarui buku. Mohon isi nama buku", http.StatusBadRequest)
-		return
-	}
-
 	if updatedBook.ReadPage > updatedBook.PageCount {
 		http.Error(w, "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount", http.StatusBadRequest)
 		return
