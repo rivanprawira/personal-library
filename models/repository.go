@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Membuat tipe data buku dengan struktur
 type Book struct {
 	ID         int
 	Title      string
@@ -18,9 +19,14 @@ type Book struct {
 	UpdatedAt  string
 }
 
+// Membuat variabel books sebagai slice dari Book
+// digunakan untuk menambahkan buku dalam Book(Perpusatakaan)
 var books []Book
+
+// Membuat variabel untuk ID buku
 var lastID int = 0
 
+// Interface untuk fitur dalam perpustakaan
 type BookRepository interface {
 	AddBook(book Book) Book
 	GetAllBooks() []Book
@@ -34,7 +40,33 @@ type InMemoryBookRepository struct{}
 
 // UpdateBook implements BookRepository.
 func (r *InMemoryBookRepository) UpdateBook(id int, updatedBook Book) bool {
-	panic("unimplemented")
+	for i, book := range books {
+		if book.ID == id {
+			// Hanya memperbarui field yang tidak kosong atau bernilai default
+			if updatedBook.Title != "" {
+				books[i].Title = updatedBook.Title
+			}
+			if updatedBook.Year != 0 {
+				books[i].Year = updatedBook.Year
+			}
+			if updatedBook.Author != "" {
+				books[i].Author = updatedBook.Author
+			}
+			if updatedBook.PageCount != 0 {
+				books[i].PageCount = updatedBook.PageCount
+			}
+			if updatedBook.ReadPage != 0 {
+				books[i].ReadPage = updatedBook.ReadPage
+			}
+
+			// Perbarui status buku
+			books[i].Finished = books[i].PageCount == books[i].ReadPage
+			books[i].UpdatedAt = time.Now().Format(time.RFC3339)
+
+			return true
+		}
+	}
+	return false
 }
 
 func (r *InMemoryBookRepository) AddBook(book Book) Book {
