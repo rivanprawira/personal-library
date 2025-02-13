@@ -22,9 +22,6 @@ func main() {
 	expectedUsername := os.Getenv("USERNAME_SERVER")
 	expectedPassword := os.Getenv("PASSWORD_SERVER")
 
-	fmt.Println("USERNAME:", expectedUsername)
-	fmt.Println("PASSWORD:", expectedPassword)
-
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter username: ")
 	inputUsername, _ := reader.ReadString('\n')
