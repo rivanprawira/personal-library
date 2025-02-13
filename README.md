@@ -1,6 +1,4 @@
-# program-sederhana
-
-Ide : Membuat Perpustakaan Sederhana
+# Personal Library
 
 Menerapkan struktur project dengan pattern MVC
 
@@ -17,6 +15,7 @@ Syntax Dasar:
 Import File Lokal
 
 Import Libray dari 3rd Party
+    joho godotenv
 
 Pointer & Struct
 
