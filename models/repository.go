@@ -93,7 +93,7 @@ func (r *InMemoryBookRepository) GetBookByID(id int) (*Book, bool) {
 	return nil, false
 }
 
-func (r *InMemoryBookRepository) updatedBook(id int, updateBook Book) bool {
+func (r *InMemoryBookRepository) UpdatedBook(id int, updateBook Book) bool {
 	for i, book := range books {
 		if book.ID == id {
 			books[i] = updateBook
