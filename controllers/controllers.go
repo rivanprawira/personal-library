@@ -48,16 +48,16 @@ func (c *BookController) AddBookHandler(w http.ResponseWriter, r *http.Request) 
 func (c *BookController) GetAllBooksHandler(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 	name := query.Get("name")
-	reading := query.Get("reading")
 	finished := query.Get("finished")
 
-	filteredBooks := c.Handler.FilterBooks(name, reading, finished)
+	filteredBooks := c.Handler.FilterBooks(name, finished)
 
 	result := make([]map[string]interface{}, 0)
 	for _, book := range filteredBooks {
 		result = append(result, map[string]interface{}{
-			"id":   book.ID,
-			"name": book.Title,
+			"id":       book.ID,
+			"title":    book.Title,
+			"finished": book.Finished,
 		})
 	}
 

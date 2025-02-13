@@ -14,7 +14,6 @@ type Book struct {
 	PageCount  int
 	ReadPage   int
 	Finished   bool
-	Reading    bool
 	InsertedAt string
 	UpdatedAt  string
 }
@@ -33,7 +32,7 @@ type BookRepository interface {
 	GetBookByID(id int) (*Book, bool)
 	UpdateBook(id int, updatedBook Book) bool
 	DeleteBook(id int) bool
-	FilterBooks(name, reading, finished string) []Book
+	FilterBooks(name, finished string) []Book
 }
 
 type InMemoryBookRepository struct{}
@@ -115,14 +114,11 @@ func (r *InMemoryBookRepository) DeleteBook(id int) bool {
 	return false
 }
 
-func (r *InMemoryBookRepository) FilterBooks(name, reading, finished string) []Book {
+func (r *InMemoryBookRepository) FilterBooks(name, finished string) []Book {
 	filteredBooks := books
 
 	if name != "" {
 		filteredBooks = filteredBooksByName(filteredBooks, name)
-	}
-	if reading != "" {
-		filteredBooks = filteredBooksByReading(filteredBooks, reading)
 	}
 	if finished != "" {
 		filteredBooks = filteredBooksByFinished(filteredBooks, finished)
@@ -141,22 +137,11 @@ func filteredBooksByName(books []Book, name string) []Book {
 	return result
 }
 
-func filteredBooksByReading(books []Book, reading string) []Book {
-	var result []Book
-	isReading := reading == "1"
-	for _, book := range books {
-		if book.Reading == isReading {
-			result = append(result, book)
-		}
-	}
-	return result
-}
-
 func filteredBooksByFinished(books []Book, finished string) []Book {
 	var result []Book
 	isFinished := finished == "1"
 	for _, book := range books {
-		if book.Reading == isFinished {
+		if book.Finished == isFinished {
 			result = append(result, book)
 		}
 	}

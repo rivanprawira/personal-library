@@ -28,6 +28,6 @@ func (h *BookHandler) DeleteBook(id int) bool {
 	return h.Repo.DeleteBook(id)
 }
 
-func (h *BookHandler) FilterBooks(name, reading, finished string) []Book {
-	return h.Repo.FilterBooks(name, reading, finished)
+func (h *BookHandler) FilterBooks(name, finished string) []Book {
+	return h.Repo.FilterBooks(name, finished)
 }
