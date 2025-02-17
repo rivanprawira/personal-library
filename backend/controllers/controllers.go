@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"net/http"
-	"personal-library/models"
+	"personal-library/backend/models"
 	"strconv"
 	"strings"
 )

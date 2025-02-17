@@ -2,8 +2,8 @@ package routes
 
 import (
 	"net/http"
-	"personal-library/controllers"
-	"personal-library/models"
+	"personal-library/backend/controllers"
+	"personal-library/backend/models"
 )
 
 func SetupRoutes() {

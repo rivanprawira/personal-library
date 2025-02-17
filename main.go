@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"time"
 
-	"personal-library/routes"
+	"personal-library/backend/routes"
 
 	"github.com/joho/godotenv"
 )
