@@ -7,26 +7,25 @@ import (
 
 func SetupRoutes() {
 	repo := &models.InMemoryBookRepository{}
-	handler := models.NewBookHandler(repo)
-	controller := NewBookController(handler)
+	handler := NewBookHandler(repo)
 
 	http.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodPost:
-			controller.AddBookHandler(w, r)
+			handler.AddBookHandler(w, r)
 		case http.MethodGet:
-			controller.GetAllBooksHandler(w, r)
+			handler.GetAllBooksHandler(w, r)
 		}
 	})
 
 	http.HandleFunc("/books/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
-			controller.GetBookByIdHandler(w, r)
+			handler.GetBookByIdHandler(w, r)
 		case http.MethodPut:
-			controller.EditBookByIdHandler(w, r)
+			handler.EditBookByIdHandler(w, r)
 		case http.MethodDelete:
-			controller.DeleteBookByIdHandler(w, r)
+			handler.DeleteBookByIdHandler(w, r)
 		}
 	})
 }

@@ -8,15 +8,7 @@ import (
 	"strings"
 )
 
-type BookController struct {
-	Handler *models.BookHandler
-}
-
-func NewBookController(handler *models.BookHandler) *BookController {
-	return &BookController{Handler: handler}
-}
-
-func (c *BookController) AddBookHandler(w http.ResponseWriter, r *http.Request) {
+func (c *BookHandler) AddBookHandler(w http.ResponseWriter, r *http.Request) {
 	var newBook models.Book
 	err := json.NewDecoder(r.Body).Decode(&newBook)
 	if err != nil {
@@ -45,7 +37,7 @@ func (c *BookController) AddBookHandler(w http.ResponseWriter, r *http.Request) 
 	})
 }
 
-func (c *BookController) GetAllBooksHandler(w http.ResponseWriter, r *http.Request) {
+func (c *BookHandler) GetAllBooksHandler(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 	name := query.Get("name")
 	finished := query.Get("finished")
@@ -69,7 +61,7 @@ func (c *BookController) GetAllBooksHandler(w http.ResponseWriter, r *http.Reque
 	})
 }
 
-func (c *BookController) GetBookByIdHandler(w http.ResponseWriter, r *http.Request) {
+func (c *BookHandler) GetBookByIdHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(strings.TrimPrefix(r.URL.Path, "/books/"))
 	if err != nil {
 		http.Error(w, "ID buku tidak valid", http.StatusBadRequest)
@@ -89,7 +81,7 @@ func (c *BookController) GetBookByIdHandler(w http.ResponseWriter, r *http.Reque
 	})
 }
 
-func (c *BookController) EditBookByIdHandler(w http.ResponseWriter, r *http.Request) {
+func (c *BookHandler) EditBookByIdHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(strings.TrimPrefix(r.URL.Path, "/books/"))
 	if err != nil {
 		http.Error(w, "ID buku tidak valid", http.StatusBadRequest)
@@ -123,7 +115,7 @@ func (c *BookController) EditBookByIdHandler(w http.ResponseWriter, r *http.Requ
 	})
 }
 
-func (c *BookController) DeleteBookByIdHandler(w http.ResponseWriter, r *http.Request) {
+func (c *BookHandler) DeleteBookByIdHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(strings.TrimPrefix(r.URL.Path, "/books/"))
 	if err != nil {
 		http.Error(w, "ID buku tidak valid", http.StatusBadRequest)
