@@ -1,15 +1,14 @@
-package routes
+package controllers
 
 import (
 	"net/http"
-	"personal-library/backend/controllers"
 	"personal-library/backend/models"
 )
 
 func SetupRoutes() {
 	repo := &models.InMemoryBookRepository{}
 	handler := models.NewBookHandler(repo)
-	controller := controllers.NewBookController(handler)
+	controller := NewBookController(handler)
 
 	http.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {

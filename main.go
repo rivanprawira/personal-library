@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"time"
 
-	"personal-library/backend/routes"
+	"personal-library/backend/controllers"
 
 	"github.com/joho/godotenv"
 )
@@ -34,7 +34,7 @@ func main() {
 		log.Fatal("Invalid username or password")
 	}
 
-	routes.SetupRoutes()
+	controllers.SetupRoutes()
 	port := os.Getenv("PORT")
 	server := &http.Server{Addr: ":" + port}
 
