@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/signal"
 	"strings"
+	"sync"
 	"syscall"
 	"time"
 
@@ -39,8 +40,13 @@ func main() {
 	server := &http.Server{Addr: ":" + port}
 
 	stopServer := make(chan struct{})
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 
+	var wg sync.WaitGroup
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		log.Printf("Server started on http://localhost:%s\n", port)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Server error: %v", err)
@@ -48,7 +54,9 @@ func main() {
 	}()
 
 	initialToken := os.Getenv("TOKEN")
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		for {
 			time.Sleep(5 * time.Second) // Check every 5 seconds
 			file, err := os.ReadFile(".env")
@@ -85,11 +93,9 @@ func main() {
 		log.Println("\nToken changed. Stopping server...")
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
 	if err := server.Shutdown(ctx); err != nil {
 		log.Fatalf("Server shutdown error: %v", err)
 	}
 
-	log.Println("Server stopped gracefully")
+	log.Println("Server stopped")
 }
